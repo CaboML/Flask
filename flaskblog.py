@@ -10,6 +10,12 @@ Created on Sat Jan 19 11:29:34 2019
 
 
 from flask import Flask, render_template, url_for
+
+
+
+
+
+
 app = Flask(__name__) # create app variable
 
 
@@ -30,11 +36,6 @@ posts = [
         ]
 
 
-
-
-
-
-
 @app.route('/') 
 @app.route('/home')   #renders backend. route page of our website. slash mean homepage
 # this kind of call are called decorators. 
@@ -51,7 +52,7 @@ def home():
 #debug mode allows the weppage to refresh every change and update
     
 # USE: export FLASK_DEBUG=1
-    
+    /
 ## TO have the debug mode
     
 
