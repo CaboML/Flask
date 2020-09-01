@@ -11,8 +11,6 @@ clean:
 	rm -rf .vscode/
 	find -iname "*.pyc" -delete
 
-
-
-run:
+run: venv
 	export FLASK_APP="flaskblog.py" && \
 	. venv/bin/activate && flask run 
