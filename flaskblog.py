@@ -9,14 +9,12 @@ Created on Sat Jan 19 11:29:34 2019
 # need to create an virtualenvironment
 
 
-from flask import Flask, render_template, url_for
-
-
-
-
+from flask import Flask, render_template, url_for, flash, redirect
+from forms import RegistrationForm, LoginForm
 
 
 app = Flask(__name__) # create app variable
+app.config['SECRET_KEY'] = '3e6ed80862da4fdd3f01114bb8a9de9e'
 
 
 # dictionaries to be upload to the blog
@@ -42,26 +40,24 @@ posts = [
 def home():
     return render_template('home.html', posts= posts)
 
-# need to make cs code directory
-# run: export FLASK_APP=flaskblog.py
-# then run flask run
-    
-# the ip adress is http://127.0.0.1:5000
-# or http://localhost:5000
-
-#debug mode allows the weppage to refresh every change and update
-    
-# USE: export FLASK_DEBUG=1
-    /
-## TO have the debug mode
-    
-
 
 @app.route('/about')   #renders backend. route page of our website. slash mean homepage
 # this kind of call are called decorators. 
 def about():
     return render_template('about.html', title="New About Page")
 
+@app.route("/register", methods=['GET', 'POST'])
+def register():
+    form = RegistrationForm()
+    if form.validate_on_submit():
+        flash(f'Account created for {form.username.data}!', 'success')
+        return redirect(url_for('home'))
+    return render_template('register.html',title='Register', form=form)
+
+@app.route("/login")
+def login():
+    form = LoginForm()
+    return render_template('login.html',title='Login', form=form)
 
 if __name__ == '__main__':
     app.run(debug=True)
